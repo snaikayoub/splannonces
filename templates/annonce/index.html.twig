@@ -3,7 +3,7 @@
 {% block title %} {{ title }} {% endblock %}
 
 {% block body %}
-
+{% for annonce in annonces %}
 <div class="col-12 col-lg-4 py-3">
     <div class="card shadow-sm">
 
@@ -14,7 +14,7 @@
                     <i class="fas fa-map-signs"></i>
                 </span>
                 <!--//card-icon-holder-->
-                <span class="card-title-text">Introduction</span>
+                <span class="card-title-text"> {{ annonce.title}} </span>
             </h5>
             <div class="card-text">
                 Section overview goes here. Lorem ipsum dolor sit amet, consectetuer adipiscing
@@ -29,5 +29,5 @@
 </div>
 <!--//col-->
 
-
+{% endfor %}
 {% endblock %}
