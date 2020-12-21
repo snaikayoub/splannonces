@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}{% block title %} {{ title }} {% endblock %}
+
+{% block stylesheets %}
+
+<link id="theme-style" rel="stylesheet" href="{{ asset('assets/css/slide.css') }}">
+
+{% endblock %}
+
+
+{% block body %}
+<div class="col-12 col-lg-12 py-3">
+    <table class="table table-stripe">
+        <thead>
+            <tr>
+                <th>Caractéristique</th>
+                <th>Valeur</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Titre :</td>
+                <td>{{annonce.title}}</td>
+            </tr>
+            <tr>
+                <td>Déscription :</td>
+                <td>{{annonce.description}}</td>
+            </tr>
+            <tr>
+                <td>Type :</td>
+                <td>{{annonce.type}}</td>
+            </tr>
+            <tr>
+                <td>Catégorie :</td>
+                <td>{{annonce.categorie}}</td>
+            </tr>
+            <tr>
+                <td>Ville :</td>
+                <td>{{annonce.ville}}</td>
+            </tr>
+            <tr>
+                <td>Contact :</td>
+                <td>{{annonce.contact}}</td>
+            </tr>
+            <tr>
+                <td>Price :</td>
+                <td>{{annonce.price}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div>
+        <!-- The grid: four columns -->
+        <div class="row">
+            <div class="column col-2">
+                <img src="{% if not annonce.imageFile %}{{ asset('/assets/images/empty-img1.jpg') | imagine_filter('my_thumb') }}{% endif %}"
+                    alt="Nature" onclick="myFunction(this);">
+            </div>
+            <div class="column col-2">
+                <img src="{% if not annonce.imageFile %}{{ asset('/assets/images/empty-img2.jpg') | imagine_filter('my_thumb') }}{% endif %}"
+                    alt="Snow" onclick="myFunction(this);">
+            </div>
+            <div class="column col-2">
+                <img src="{% if not annonce.imageFile %}{{ asset('/assets/images/empty-img3.jpg') | imagine_filter('my_thumb') }}{% endif %}"
+                    alt="Mountains" onclick="myFunction(this);">
+            </div>
+            <div class="column col-2">
+                <img src="{% if not annonce.imageFile %}{{ asset('/assets/images/empty-img4.jpg') | imagine_filter('my_thumb') }}{% endif %}"
+                    alt="Lights" onclick="myFunction(this);">
+            </div>
+        </div>
+
+        <!-- The expanding image container -->
+        <div class="container">
+            <!-- Close the image -->
+            <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+
+            <!-- Expanded image -->
+            <img id="expandedImg" style="width:100%">
+
+            <!-- Image text -->
+            <div id="imgtext"></div>
+        </div>
+    </div>
+</div>
+<!--//col-->
+
+{% endblock %}
+
+{% block javascripts %}
+
+<script src="{{ asset('assets/js/slide.js') }}"></script>
+
+{% endblock %}

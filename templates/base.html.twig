@@ -10,18 +10,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Bootstrap Documentation Template For Software Developers">
     <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
 
     <!-- FontAwesome JS-->
-    <script defer src="assets/fontawesome/js/all.min.js"></script>
+    <script defer src="{{ asset('assets/fontawesome/js/all.min.js') }}"></script>
 
     <!-- Theme CSS -->
-    <link id="theme-style" rel="stylesheet" href="assets/css/theme.css">
+    <link id="theme-style" rel="stylesheet" href="{{ asset('assets/css/theme.css') }}">
 
-    {% block stylesheets %}{% endblock %}
+    {% block stylesheets %}
+
+
+
+    {% endblock %}
 
 </head>
 
@@ -31,9 +35,9 @@
         <div class="branding docs-branding">
             <div class="container-fluid position-relative py-2">
                 <div class="docs-logo-wrapper">
-                    <div class="site-logo"><a class="navbar-brand" href="index.html"><img class="logo-icon mr-2"
-                                src="assets/images/coderdocs-logo.svg" alt="logo"><span class="logo-text">Coder<span
-                                    class="text-alt">Docs</span></span></a></div>
+                    <div class="site-logo"><a class="navbar-brand" href="{{ path('home') }}"><img class="logo-icon mr-2"
+                                src="{{ asset('assets/images/coderdocs-logo.svg') }}" alt="logo"><span
+                                class="logo-text">Coder<span class="text-alt">Docs</span></span></a></div>
                 </div>
                 <!--//docs-logo-wrapper-->
                 <div class="docs-top-utilities d-flex justify-content-end align-items-center">
@@ -54,23 +58,9 @@
         </div>
         <!--//branding-->
     </header>
-    <!--//header-->
-    <div class="page-header theme-bg-dark py-5 text-center position-relative">
-        <div class="theme-bg-shapes-right"></div>
-        <div class="theme-bg-shapes-left"></div>
-        <div class="container">
-            <h1 class="page-heading single-col-max mx-auto">Documentation</h1>
-            <div class="page-intro single-col-max mx-auto">Everything you need to get your software documentation
-                online.</div>
-            <div class="main-search-box pt-3 d-block mx-auto">
-                <form class="search-form w-100">
-                    <input type="text" placeholder="Search the docs..." name="search" class="form-control search-input">
-                    <button type="submit" class="btn search-btn" value="Search"><i class="fas fa-search"></i></button>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!--//page-header-->
+    {% block page_header %}
+
+    {% endblock page_header %}
 
     <div class="page-content">
         <div class="container">
@@ -129,11 +119,15 @@
     </footer>
 
     <!-- Javascript -->
-    <script src="assets/plugins/jquery-3.4.1.min.js"></script>
-    <script src="assets/plugins/popper.min.js"></script>
-    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{ asset('assets/plugins/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
 
-    {% block javascripts %}{% endblock %}
+    {% block javascripts %}
+
+
+
+    {% endblock %}
 </body>
 
 </html>

@@ -18,8 +18,8 @@ class AnnoncesFixture extends Fixture
             $annonce = new Annonce;
             $annonce->setTitle($faker->sentence(3))
                 ->setDescription($faker->paragraph(3, 3))
-                ->setType($faker->boolean)
-                ->setCategorie($faker->word(mt_rand(3, 6)))
+                ->setType($faker->word(5))
+                ->setCategorie($faker->word(mt_rand(5, 6)))
                 ->setVille($faker->city)
                 ->setContact($faker->lastName)
                 ->setPrice($faker->numberBetween(10, 25000))

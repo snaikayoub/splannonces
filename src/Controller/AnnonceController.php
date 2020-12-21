@@ -29,4 +29,28 @@ class AnnonceController extends AbstractController
             'annonces' => $annonces
         ]);
     }
+
+    /**
+     * @Route("/annonce/show/{id}", name="annonces.show")
+     */
+    public function show(AnnonceRepository $repo, $id): Response
+    {
+        $annonce = $repo->find($id);
+
+        return $this->render('annonce/show.html.twig', [
+            'title' => 'show',
+            'annonce' => $annonce
+        ]);
+    }
+
+    /**
+     * @Route("/annonce/create", name="annonces.create")
+     */
+    public function create(): Response
+    {
+
+        return $this->render('annonce/show.html.twig', [
+            'title' => 'show'
+        ]);
+    }
 }
