@@ -14,10 +14,10 @@ class AnnoncesFixture extends Fixture
     {
         $faker = Faker\Factory::create('fr_FR');
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             $annonce = new Annonce;
-            $annonce->setTitle($faker->sentence(3))
-                ->setDescription($faker->paragraph(3, 3))
+            $annonce->setTitle($faker->sentence(2))
+                ->setDescription($faker->sentence(10))
                 ->setType($faker->word(5))
                 ->setCategorie($faker->word(mt_rand(5, 6)))
                 ->setVille($faker->city)

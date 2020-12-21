@@ -1,9 +1,50 @@
 {% extends 'base.html.twig' %}
-
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
 {% block title %} {{ title }} {% endblock %}
 
+
+
+
 {% block body %}
+<h4>Nouvelle Annonce</h4>
+<div class="container m-3 ">
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col-md-8">{{ form_row(form.title,{'attr':{'placeholder' : 'Titre de l\'annonce'}})
+            }}</div>
+        <div class="col-md-4">{{ form_row(form.type) }}</div>
+    </div>
 
+    <div class="row">
+        <div class="col-md-12">{{ form_row(form.description) }}</div>
 
+    </div>
+    <div class="row">
+        <div class="col-md-6">{{ form_row(form.categorie) }}</div>
+        <div class="col-md-6">{{ form_row(form.imageFile) }}</div>
 
+    </div>
+    <div class="row">
+        <div class="col-md-4">{{ form_row(form.ville) }}</div>
+        <div class="col-md-4">{{ form_row(form.contact) }}</div>
+        <div class="col-md-4">{{ form_row(form.price) }}</div>
+    </div>
+    <div class="row py-3 ">
+
+        <button class="btn btn-primary align-items-center">Enregistrer</button>
+    </div>
+    {{ form_end(form) }}
+</div>
 {% endblock body %}
+
+{% block javascripts %}
+
+<script>
+
+    var champs = document.getElementsByClassName("form-control");
+    for (i = 0; i < champs.length; i++) {
+        champs[i].setAttribute("style", "padding: .2em;")
+    }
+</script>
+
+{% endblock javascripts %}
