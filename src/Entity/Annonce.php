@@ -126,7 +126,7 @@ class Annonce
         return $this->fileName;
     }
 
-    public function setFileName(string $fileName): self
+    public function setFileName(?string $fileName): self
     {
         $this->fileName = $fileName;
 
@@ -216,6 +216,7 @@ class Annonce
      */
     public function setImageFile(?File $imageFile = null): void
     {
+
         $this->imageFile = $imageFile;
 
         if (null !== $imageFile) {

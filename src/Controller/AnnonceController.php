@@ -107,6 +107,7 @@ class AnnonceController extends AbstractController
             $annonce->setUpdatedAt(new \DateTime());
             $manager->persist($annonce);
             $manager->flush();
+            return $this->redirectToRoute('annonces');
         }
         $formView = $form->createView();
 
