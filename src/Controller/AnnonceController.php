@@ -49,7 +49,7 @@ class AnnonceController extends AbstractController
 
     /**
      * @Route("/annonce/new", name="annonces.create")
-     *  @Route("/annonce/{id}/edit", name="annonce_edit")
+     *  @Route("/annonce/{id}/edit", name="annonce.edit")
      */
     public function form(Annonce $annonce = null, Request $request, EntityManagerInterface $manager): Response
     {

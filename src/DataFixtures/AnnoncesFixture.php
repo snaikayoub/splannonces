@@ -14,7 +14,7 @@ class AnnoncesFixture extends Fixture
     {
         $faker = Faker\Factory::create('fr_FR');
 
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 30; $i++) {
             $annonce = new Annonce;
             $annonce->setTitle($faker->sentence(2))
                 ->setDescription($faker->sentence(10))
@@ -25,8 +25,8 @@ class AnnoncesFixture extends Fixture
                 ->setPrice($faker->numberBetween(10, 25000))
                 ->setCreatedAt(new \DateTime());
             $manager->persist($annonce);
-            $manager->flush();
         }
+        $manager->flush();
         // $product = new Product();
         // 
 

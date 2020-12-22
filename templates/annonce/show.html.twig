@@ -1,4 +1,5 @@
-{% extends 'base.html.twig' %}{% block title %} {{ title }} {% endblock %}
+{% extends 'base.html.twig' %}
+{% block title %} {{ title }} {% endblock %}
 
 {% block stylesheets %}
 
@@ -48,20 +49,24 @@
     <div class="col-md-6">
         <div class="rowsl">
             <div class="column">
-                <img class="demo cursor" src="{{ asset('/assets/images/empty-img1.jpg') | imagine_filter('my_thumb') }}"
-                    style="width:100%" onclick="currentSlide(1)" alt="The Woods">
+                <img class="demo cursor"
+                    src="{{ asset('/assets/images/empty-img1.jpg') | imagine_filter('my_thumb1') }}" style="width:100%"
+                    onclick="currentSlide(1)" alt="The Woods">
             </div>
             <div class="column">
-                <img class="demo cursor" src="{{ asset('/assets/images/empty-img2.jpg') | imagine_filter('my_thumb') }}"
-                    style="width:100%" onclick="currentSlide(2)" alt="Cinque Terre">
+                <img class="demo cursor"
+                    src="{{ asset('/assets/images/empty-img2.jpg') | imagine_filter('my_thumb1') }}" style="width:100%"
+                    onclick="currentSlide(2)" alt="Cinque Terre">
             </div>
             <div class="column">
-                <img class="demo cursor" src="{{ asset('/assets/images/empty-img3.jpg') | imagine_filter('my_thumb') }}"
-                    style="width:100%" onclick="currentSlide(3)" alt="Mountains and fjords">
+                <img class="demo cursor"
+                    src="{{ asset('/assets/images/empty-img3.jpg') | imagine_filter('my_thumb1') }}" style="width:100%"
+                    onclick="currentSlide(3)" alt="Mountains and fjords">
             </div>
             <div class="column">
-                <img class="demo cursor" src="{{ asset('/assets/images/empty-img4.jpg') | imagine_filter('my_thumb') }}"
-                    style="width:100%" onclick="currentSlide(4)" alt="Northern Lights">
+                <img class="demo cursor"
+                    src="{{ asset('/assets/images/empty-img4.jpg') | imagine_filter('my_thumb1') }}" style="width:100%"
+                    onclick="currentSlide(4)" alt="Northern Lights">
             </div>
 
         </div>
@@ -106,6 +111,9 @@
         </tr>
     </tbody>
 </table>
+<div class="row">
+    <a href="{{ path('annonce.edit',{'id': annonce.id}) }}" class="btn btn-primary">Editer</a>
+</div>
 
 
 
