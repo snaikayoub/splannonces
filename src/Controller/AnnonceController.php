@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Annonce;
+use App\Entity\AnnonceSearch;
+use App\Form\AnnonceSearchType;
 use App\Repository\AnnonceRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,12 +28,23 @@ class AnnonceController extends AbstractController
     /**
      * @Route("/annonce", name="annonces")
      */
-    public function annonces(AnnonceRepository $repo): Response
+    public function annonces(AnnonceRepository $repo, PaginatorInterface $paginator, Request $request): Response
     {
-        $annonces = $repo->findAll();
+        $search = new AnnonceSearch;
+        $form = $this->createForm(AnnonceSearchType::class, $search);
+        $form->handleRequest($request);
+
+
+
+        $annonces = $paginator->paginate(
+            $repo->findAllNotExpiredQueryFilter($search),
+            $request->query->getInt('page', 1), /*page number*/
+            9 /*limit per page*/
+        );
         return $this->render('annonce/index.html.twig', [
             'title' => 'Liste des Annonces',
-            'annonces' => $annonces
+            'annonces' => $annonces,
+            'form' => $form->createView()
         ]);
     }
 

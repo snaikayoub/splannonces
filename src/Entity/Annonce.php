@@ -66,7 +66,7 @@ class Annonce
     private $contact;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="float")
      */
     private $price;
 
@@ -79,6 +79,11 @@ class Annonce
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updated_at;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $expired;
 
     public function getId(): ?int
     {
@@ -169,17 +174,7 @@ class Annonce
         return $this;
     }
 
-    public function getPrice(): ?string
-    {
-        return $this->price;
-    }
 
-    public function setPrice(string $price): self
-    {
-        $this->price = $price;
-
-        return $this;
-    }
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
@@ -229,5 +224,37 @@ class Annonce
     public function getImageFile(): ?File
     {
         return $this->imageFile;
+    }
+
+    public function getExpired(): ?bool
+    {
+        return $this->expired;
+    }
+
+    public function setExpired(bool $expired): self
+    {
+        $this->expired = $expired;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of price
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * Set the value of price
+     *
+     * @return  self
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
     }
 }

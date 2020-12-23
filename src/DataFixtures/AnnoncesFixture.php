@@ -23,7 +23,9 @@ class AnnoncesFixture extends Fixture
                 ->setVille($faker->city)
                 ->setContact($faker->lastName)
                 ->setPrice($faker->numberBetween(10, 25000))
+                ->setExpired(false)
                 ->setCreatedAt(new \DateTime());
+
             $manager->persist($annonce);
         }
         $manager->flush();
