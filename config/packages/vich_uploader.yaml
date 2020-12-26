@@ -6,3 +6,7 @@ vich_uploader:
             uri_prefix: /images/annonces
             upload_destination: "%kernel.project_dir%/public/images/annonces"
             namer: Vich\UploaderBundle\Naming\UniqidNamer
+        annonces_img_edit:
+            uri_prefix: /images/annonces/show
+            upload_destination: "%kernel.project_dir%/public/images/annonces/show"
+            namer: Vich\UploaderBundle\Naming\UniqidNamer

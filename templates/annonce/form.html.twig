@@ -7,31 +7,51 @@
 
 {% block body %}
 <h4>Nouvelle Annonce</h4>
-<div class="container m-3 ">
+<div class="container m-3 col-md-10">
     {{ form_start(form) }}
     <div class="row">
-        <div class="col-md-8">{{ form_row(form.title,{'attr':{'placeholder' : 'Titre de l\'annonce'}})
-            }}</div>
+        <div class="col-md-4">{{ form_row(form.title,{'attr':{'placeholder' : 'Titre de l\'annonce'}})}}</div>
         <div class="col-md-4">{{ form_row(form.type) }}</div>
+        <div class="col-md-4">{{ form_row(form.categorie) }}</div>
     </div>
 
     <div class="row">
         <div class="col-md-12">{{ form_row(form.description) }}</div>
 
     </div>
-    <div class="row">
-        <div class="col-md-6">{{ form_row(form.categorie) }}</div>
-        <div class="col-md-6">{{ form_row(form.imageFile) }}</div>
 
-    </div>
     <div class="row">
         <div class="col-md-4">{{ form_row(form.ville) }}</div>
         <div class="col-md-4">{{ form_row(form.contact) }}</div>
         <div class="col-md-4">{{ form_row(form.price) }}</div>
     </div>
-    <div class="row py-3 ">
+    <div class="row">
+        <div class="col col-md-3">
+            <div class="">{{ form_row(form.imageFile1) }}</div>
+            <img src="{% if annonce.filename1 %}{{ vich_uploader_asset(annonce , 'imageFile1') | imagine_filter('my_thumb2') }}{% else %}/assets/images/no-img.jpg{% endif %}"
+                style="width:100%">
+        </div>
+        <div class="col col-md-3">
+            <div class="">{{ form_row(form.imageFile2) }}</div>
+            <img src="{% if annonce.filename2 %}{{ vich_uploader_asset(annonce , 'imageFile2') | imagine_filter('my_thumb2') }}{% else %}/assets/images/no-img.jpg{% endif %}"
+                style="width:100%">
+        </div>
+        <div class="col col-md-3">
+            <div class="">{{ form_row(form.imageFile3) }}</div>
+            <img src="{% if annonce.filename3 %}{{ vich_uploader_asset(annonce , 'imageFile3') | imagine_filter('my_thumb2') }}{% else %}/assets/images/no-img.jpg{% endif %}"
+                style="width:100%">
+        </div>
+        <div class="col col-md-3">
+            <div class="">{{ form_row(form.imageFile4) }}</div>
+            <img src="{% if annonce.filename4 %}{{ vich_uploader_asset(annonce , 'imageFile4') | imagine_filter('my_thumb2') }}{% else %}/assets/images/no-img.jpg{% endif %}"
+                style="width:100%">
+        </div>
 
-        <button class="btn btn-primary align-items-center">Enregistrer</button>
+
+    </div>
+
+    <div class="row py-3 ">
+        <button class="btn btn-primary mx-auto col-lg-4">Enregistrer</button>
     </div>
     {{ form_end(form) }}
 </div>

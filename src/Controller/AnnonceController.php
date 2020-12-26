@@ -62,6 +62,17 @@ class AnnonceController extends AbstractController
     }
 
     /**
+     * @Route("/annonce/{id}/delete", name="annonces.delete")
+     */
+    public function delete(AnnonceRepository $repo, $id, EntityManagerInterface $manager): Response
+    {
+        $annonce = $repo->find($id);
+        $manager->remove($annonce);
+        $manager->flush();
+        return $this->redirectToRoute('annonces');
+    }
+
+    /**
      * @Route("/annonce/new", name="annonces.create")
      *  @Route("/annonce/{id}/edit", name="annonce.edit")
      */
@@ -83,7 +94,10 @@ class AnnonceController extends AbstractController
                 'choice_attr' => ['Type' => ['disabled' => '']]
             ])
 
-            ->add('imageFile', FileType::class, ['required' => false])
+            ->add('imageFile1', FileType::class, ['required' => false, 'label' => 'Image Principale'])
+            ->add('imageFile2', FileType::class, ['required' => false, 'label' => '2ème Image'])
+            ->add('imageFile3', FileType::class, ['required' => false, 'label' => '3ème Image'])
+            ->add('imageFile4', FileType::class, ['required' => false, 'label' => '4ème Image'])
 
             ->add('ville', ChoiceType::class, [
                 'choices' => [
@@ -111,23 +125,33 @@ class AnnonceController extends AbstractController
 
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
             if (!$annonce->getId()) {
                 $annonce->setCreatedAt(new \DateTime());
+
                 $manager->persist($annonce);
                 $manager->flush();
-                return $this->redirectToRoute('annonces');
+
+
+                return $this->redirectToRoute('annonces.show', [
+                    'id' => $annonce->getId()
+                ]);
             }
+
             $annonce->setUpdatedAt(new \DateTime());
             $manager->persist($annonce);
             $manager->flush();
-            return $this->redirectToRoute('annonces');
+
+            return $this->redirectToRoute('annonces.show', [
+                'id' => $annonce->getId()
+            ]);
         }
         $formView = $form->createView();
 
         return $this->render('annonce/form.html.twig', [
             'form' => $formView,
-
+            'annonce' => $annonce,
             'title' => 'Nouvelle Annonce'
         ]);
     }
