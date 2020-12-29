@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\AnnonceRepository;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -45,7 +46,9 @@ class Annonce
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
      * @Vich\UploadableField(mapping="annonces_img", fileNameProperty="fileName1")
-     * 
+     * @Assert\Image(
+     *  mimeTypes = "image/jpeg"
+     * )
      * @var File|null
      */
     private $imageFile1;
@@ -59,7 +62,9 @@ class Annonce
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
      * @Vich\UploadableField(mapping="annonces_img", fileNameProperty="fileName2")
-     * 
+     * @Assert\Image(
+     *  mimeTypes = "image/jpeg"
+     * )
      * @var File|null
      */
     private $imageFile2;
@@ -73,7 +78,9 @@ class Annonce
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
      * @Vich\UploadableField(mapping="annonces_img", fileNameProperty="fileName3")
-     * 
+     * @Assert\Image(
+     *  mimeTypes = "image/jpeg"
+     * )
      * @var File|null
      */
     private $imageFile3;
@@ -87,7 +94,9 @@ class Annonce
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
      * @Vich\UploadableField(mapping="annonces_img", fileNameProperty="fileName4")
-     * 
+     * @Assert\Image(
+     *  mimeTypes = "image/jpeg"
+     * )
      * @var File|null
      */
     private $imageFile4;

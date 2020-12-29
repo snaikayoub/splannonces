@@ -122,9 +122,11 @@
         </table>
     </div>
     <div class="row">
+        {% if app.user is not null and app.user.username == annonce.contact %}
         <a href="{{ path('annonce.edit',{'id': annonce.id}) }}" class="btn btn-primary mx-auto col-lg-3">Editer</a>
+
         <a href="{{ path('annonces.delete',{'id': annonce.id}) }}"
-            class="btn btn-primary mx-auto col-lg-3">Supprimer</a>
+            class="btn btn-primary mx-auto col-lg-3">Supprimer</a>{% endif %}
         <a href="{{ path('annonces') }}" class="btn btn-primary mx-auto col-lg-3">Retour aux Annonces</a>
     </div>
 </div>

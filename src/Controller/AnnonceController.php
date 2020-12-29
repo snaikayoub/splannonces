@@ -9,11 +9,14 @@ use App\Repository\AnnonceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 
 class AnnonceController extends AbstractController
 {
@@ -76,8 +79,10 @@ class AnnonceController extends AbstractController
      * @Route("/annonce/new", name="annonces.create")
      *  @Route("/annonce/{id}/edit", name="annonce.edit")
      */
-    public function form(Annonce $annonce = null, Request $request, EntityManagerInterface $manager): Response
+    public function form(Annonce $annonce = null, Request $request, EntityManagerInterface $manager, Security $security): Response
     {
+        $user = $security->getUser()->getUsername();
+
         if (!$annonce) {
             $annonce = new Annonce();
         }
@@ -129,6 +134,8 @@ class AnnonceController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if (!$annonce->getId()) {
                 $annonce->setCreatedAt(new \DateTime());
+                $annonce->setContact($user);
+                $annonce->setExpired(false);
 
                 $manager->persist($annonce);
                 $manager->flush();
@@ -138,8 +145,21 @@ class AnnonceController extends AbstractController
                     'id' => $annonce->getId()
                 ]);
             }
-
+            /*if ($annonce->getImageFile1() instanceof UploadedFile) {
+                $cacheManager->remove($uploaderHelper->asset($annonce, 'imageFile1'));
+            }
+            if ($annonce->getImageFile2() instanceof UploadedFile) {
+                $cacheManager->remove($uploaderHelper->asset($annonce, 'imageFile2'));
+            }
+            if ($annonce->getImageFile3() instanceof UploadedFile) {
+                $cacheManager->remove($uploaderHelper->asset($annonce, 'imageFile3'));
+            }
+            if ($annonce->getImageFile4() instanceof UploadedFile) {
+                $cacheManager->remove($uploaderHelper->asset($annonce, 'imageFile4'));
+            }*/
             $annonce->setUpdatedAt(new \DateTime());
+            $annonce->setContact($user);
+
             $manager->persist($annonce);
             $manager->flush();
 
