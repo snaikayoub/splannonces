@@ -19,7 +19,7 @@
                     {{ form_row(form.maxPrice) }}
                 </div>
                 <div class="col">
-                    {{ form_row(form.categorie) }}
+                    {{ form_row(form.category) }}
                 </div>
                 <div class="col">
                     {{ form_row(form.ville) }}
@@ -77,3 +77,11 @@
     {{ knp_pagination_render(annonces) }}
 </div>
 {% endblock %}
+{% block javascripts %}
+<script>
+    var champs = document.getElementsByClassName("form-control");
+    for (i = 0; i < champs.length; i++) {
+        champs[i].setAttribute("style", "padding: .2em;")
+    }
+</script>
+{% endblock javascripts %}

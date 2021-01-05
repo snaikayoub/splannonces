@@ -2,12 +2,14 @@
 
 namespace App\Form;
 
+use App\Entity\Categorie;
 use App\Entity\AnnonceSearch;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class AnnonceSearchType extends AbstractType
 {
@@ -21,12 +23,13 @@ class AnnonceSearchType extends AbstractType
                     'placeholder' => 'Budget Max'
                 ]
             ])
-            ->add('categorie', TextType::class, [
-                'required' => false,
+            ->add('category', EntityType::class, [
+                'class' => Categorie::class,
+                'choice_label' => 'name',
+                'choice_value' => 'name',
+                'placeholder' => 'Categories',
                 'label' => false,
-                'attr' => [
-                    'placeholder' => 'Categorie'
-                ]
+                'required' => false
             ])
             ->add('ville', TextType::class, [
                 'required' => false,

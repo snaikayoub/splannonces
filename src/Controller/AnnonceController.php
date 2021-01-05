@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Annonce;
 use App\Entity\AnnonceSearch;
+use App\Entity\Categorie;
 use App\Form\AnnonceSearchType;
 use App\Repository\AnnonceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,7 +39,7 @@ class AnnonceController extends AbstractController
         $form = $this->createForm(AnnonceSearchType::class, $search);
         $form->handleRequest($request);
 
-
+        //dd($search);
 
         $annonces = $paginator->paginate(
             $repo->findAllNotExpiredQueryFilter($search),
@@ -114,15 +116,12 @@ class AnnonceController extends AbstractController
                 'required' => 'required',
                 'choice_attr' => ['Choisissez la ville de l\'annonce' => ['disabled' => '']]
             ])
-            ->add('categorie', ChoiceType::class, [
-                'choices' => [
-                    'Choisissez la Categorie' => '',
-                    'Véhicule' => 1,
-                    'Immobilier' => 2,
-                    'Equipement' => 3,
-                ],
-                'required' => 'required',
-                'choice_attr' => ['Choisissez la Categorie' => ['disabled' => '']]
+            ->add('category', EntityType::class, [
+                'class' => Categorie::class,
+                'choice_label' => 'name',
+                'choice_value' => 'name',
+                'placeholder' => 'Choisissez une categorie',
+                'label' => 'Categorie',
             ])
             ->add('contact')
             ->add('price')

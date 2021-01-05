@@ -51,11 +51,13 @@
                     <!--//social-list-->
 
                     {% if app.user %}
+                    <a href="" class="btn btn-primary d-none d-lg-flex mx-1">Mes annonces</a>
                     <a href="{{ path('annonces.create') }}" class="btn btn-primary d-none d-lg-flex mx-1">Déposer</a>
                     <a href="{{ path('logout') }}" class="btn btn-primary d-none d-lg-flex mx-1">Se deconnecter</a>
 
                     {% else %}
                     <a href="{{ path('login') }}" class="btn btn-primary d-none d-lg-flex mx-1">Se connecter</a>
+                    <a href="" class="btn btn-primary d-none d-lg-flex mx-1">S'inscrire</a>
                     {% endif %}
                 </div>
                 <!--//docs-top-utilities-->

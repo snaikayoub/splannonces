@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-md-4">{{ form_row(form.title,{'attr':{'placeholder' : 'Titre de l\'annonce'}})}}</div>
         <div class="col-md-4">{{ form_row(form.type) }}</div>
-        <div class="col-md-4">{{ form_row(form.categorie) }}</div>
+        <div class="col-md-4">{{ form_row(form.category) }}</div>
     </div>
 
     <div class="row">
@@ -27,8 +27,7 @@
     </div>
     <div class="row">
         <div class="col col-md-3">
-            <div class="">{% if not annonce.filename1 %}{{ form_row(form.imageFile1) }}{% else %}{{
-                form_row(form.imageFile1, { 'attr': {'disabled': 'true'} }) }}{% endif %}</div>
+            <div class="">{{ form_row(form.imageFile1) }}</div>
             <img src="{% if annonce.filename1 %}{{ vich_uploader_asset(annonce , 'imageFile1') | imagine_filter('my_thumb2') }}{% else %}/assets/images/no-img.jpg{% endif %}"
                 style="width:100%">
         </div>
@@ -75,9 +74,7 @@
 
         })
     }
-    document.getElementById("form_imageFile1").addEventListener("change", function () {
-        // alert("Attention c'est l'image principale de l'annonce elle ne pourrait etre changé plus tard aprés la validation");
-    });
+
 </script>
 
 {% endblock javascripts %}

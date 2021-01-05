@@ -104,11 +104,6 @@ class Annonce
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $categorie;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $ville;
 
     /**
@@ -135,6 +130,11 @@ class Annonce
      * @ORM\Column(type="boolean")
      */
     private $expired;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="annonces")
+     */
+    private $category;
 
     public function getId(): ?int
     {
@@ -179,17 +179,6 @@ class Annonce
 
 
 
-    public function getCategorie(): ?string
-    {
-        return $this->categorie;
-    }
-
-    public function setCategorie(string $categorie): self
-    {
-        $this->categorie = $categorie;
-
-        return $this;
-    }
 
     public function getVille(): ?string
     {
@@ -435,6 +424,18 @@ class Annonce
     public function setFileName4(?string $fileName4): self
     {
         $this->fileName4 = $fileName4;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Categorie
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Categorie $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

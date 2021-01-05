@@ -43,9 +43,9 @@ class AnnonceRepository extends ServiceEntityRepository
                 ->setParameter('maxprice', $search->getMaxPrice());
         }
 
-        if ($search->getCategorie()) {
-            $query = $query->andwhere('a.categorie like :categorie')
-                ->setParameter('categorie', '%' . $search->getCategorie() . '%');
+        if ($search->getCategory()) {
+            $query = $query->andwhere('a.category = :category')
+                ->setParameter('category', $search->getCategory()->getId());
         }
 
         if ($search->getVille()) {

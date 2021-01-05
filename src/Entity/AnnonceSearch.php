@@ -7,7 +7,7 @@ class AnnonceSearch
 
     private $maxPrice;
 
-    private $categorie;
+    private $category;
 
     private $ville;
 
@@ -15,7 +15,9 @@ class AnnonceSearch
      * Get the value of maxPrice
      */
     public function getMaxPrice()
+
     {
+
         return $this->maxPrice;
     }
 
@@ -25,6 +27,7 @@ class AnnonceSearch
      * @return  self
      */
     public function setMaxPrice($maxPrice)
+
     {
         $this->maxPrice = $maxPrice;
 
@@ -34,9 +37,10 @@ class AnnonceSearch
     /**
      * Get the value of categorie
      */
-    public function getCategorie()
+    public function getCategory()
     {
-        return $this->categorie;
+
+        return $this->category;
     }
 
     /**
@@ -44,9 +48,9 @@ class AnnonceSearch
      *
      * @return  self
      */
-    public function setCategorie($categorie)
+    public function setCategory($category)
     {
-        $this->categorie = $categorie;
+        $this->category = $category;
 
         return $this;
     }
