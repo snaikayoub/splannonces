@@ -27,7 +27,7 @@ class AnnonceSearchType extends AbstractType
                 'class' => Categorie::class,
                 'choice_label' => 'name',
                 'choice_value' => 'name',
-                'placeholder' => 'Categories',
+                'placeholder' => 'Toutes les Categories',
                 'label' => false,
                 'required' => false
             ])

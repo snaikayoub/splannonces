@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% block title %} {{ title }} {% endblock %}
+
+
+
+
+{% block body %}
+<h4>Nouvelle Utilisateur</h4>
+<div class="container m-3 p-5 col-md-10 bg-secondary text-light">
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col-md-6">{{ form_row(form.nom,{'attr':{'placeholder' : 'Votre Nom'},'label':'Nom'})}}</div>
+        <div class="col-md-6">{{ form_row(form.prenom,{'attr':{'placeholder' : 'Votre Prénom'},'label':'Prénom'})}}
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-4">{{ form_row(form.telephone) }}</div>
+        <div class="col-md-4">{{ form_row(form.ville) }}</div>
+        <div class="col-md-4">{{ form_row(form.organisation) }}</div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-6">{{ form_row(form.username,{'attr':{'placeholder' : 'Votre Email'},'label':'Email'})}}
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-6">{{ form_row(form.password,{'attr':{'placeholder' : 'Votre Mot de passe'},'label':'Mot de
+            passe'})}}</div>
+
+    </div>
+
+
+    <div class="row py-3 ">
+        <button class="btn btn-primary mx-auto col-lg-3 m-3">Enregistrer</button>
+        <div class="col-lg-5 m-3">
+            <a href="{{ path('annonces') }}" class="btn btn-primary mx-auto">Retour aux Annonces</a>
+        </div>
+    </div>
+    {{ form_end(form) }}
+</div>
+{% endblock body %}
+
+{% block javascripts %}
+
+<script>
+
+    var champs = document.getElementsByClassName("form-control");
+    for (i = 0; i < champs.length; i++) {
+        champs[i].setAttribute("style", "padding: .2em;")
+    }
+
+</script>
+
+{% endblock javascripts %}

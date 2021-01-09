@@ -104,7 +104,11 @@
                 </tr>
                 <tr>
                     <td>Catégorie :</td>
-                    <td>{{annonce.category.name}}</td>
+
+                    <td>{% if annonce.category.name is defined and annonce.category.name is not null %}
+                        {{annonce.category.name}}
+                        {% endif %}
+                    </td>
                 </tr>
                 <tr>
                     <td>Ville :</td>

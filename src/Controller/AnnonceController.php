@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Annonce;
 use App\Entity\AnnonceSearch;
 use App\Entity\Categorie;
+use App\Repository\CategorieRepository;
 use App\Form\AnnonceSearchType;
 use App\Repository\AnnonceRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -59,7 +60,6 @@ class AnnonceController extends AbstractController
     public function show(AnnonceRepository $repo, $id): Response
     {
         $annonce = $repo->find($id);
-
         return $this->render('annonce/show.html.twig', [
             'title' => 'show',
             'annonce' => $annonce
