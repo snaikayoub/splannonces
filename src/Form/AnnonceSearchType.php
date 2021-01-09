@@ -4,11 +4,11 @@ namespace App\Form;
 
 use App\Entity\Categorie;
 use App\Entity\AnnonceSearch;
+use App\Entity\Ville;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class AnnonceSearchType extends AbstractType
@@ -31,12 +31,13 @@ class AnnonceSearchType extends AbstractType
                 'label' => false,
                 'required' => false
             ])
-            ->add('ville', TextType::class, [
-                'required' => false,
+            ->add('ville', EntityType::class, [
+                'class' => Ville::class,
+                'choice_label' => 'ville',
+                'choice_value' => 'ville',
+                'placeholder' => 'Toutes les Villes',
                 'label' => false,
-                'attr' => [
-                    'placeholder' => 'Ville'
-                ]
+                'required' => false
             ]);
     }
 

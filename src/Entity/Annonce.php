@@ -104,11 +104,6 @@ class Annonce
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $ville;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $contact;
 
     /**
@@ -135,6 +130,11 @@ class Annonce
      * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="annonces")
      */
     private $category;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="annonces")
+     */
+    private $ville;
 
     public function getId(): ?int
     {
@@ -177,20 +177,6 @@ class Annonce
         return $this;
     }
 
-
-
-
-    public function getVille(): ?string
-    {
-        return $this->ville;
-    }
-
-    public function setVille(string $ville): self
-    {
-        $this->ville = $ville;
-
-        return $this;
-    }
 
     public function getContact(): ?string
     {
@@ -436,6 +422,18 @@ class Annonce
     public function setCategory(?Categorie $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getVille(): ?Ville
+    {
+        return $this->ville;
+    }
+
+    public function setVille(?Ville $ville): self
+    {
+        $this->ville = $ville;
 
         return $this;
     }

@@ -16,14 +16,15 @@
     </div>
 
     <div class="row">
-        <div class="col-md-12">{{ form_row(form.description) }}</div>
+        <div class="col-md-12">{{ form_row(form.description,{'attr':{'placeholder' : 'Déscription de l\'annonces avec
+            plus de détails ...'}})}}</div>
 
     </div>
 
     <div class="row">
-        <div class="col-md-4">{{ form_row(form.ville) }}</div>
-        <div class="col-md-4">{{ form_row(form.contact) }}</div>
-        <div class="col-md-4">{{ form_row(form.price) }}</div>
+        <div class="col-md-6">{{ form_row(form.ville) }}</div>
+        <div class="col-md-6">{{ form_row(form.price,{'attr':{'placeholder' : 'EX : 999999'},'label':'Montant :'})}}
+        </div>
     </div>
     <div class="row">
         <div class="col col-md-3">

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Annonce;
 use App\Entity\AnnonceSearch;
 use App\Entity\Categorie;
+use App\Entity\Ville;
 use App\Repository\CategorieRepository;
 use App\Form\AnnonceSearchType;
 use App\Repository\AnnonceRepository;
@@ -32,7 +33,7 @@ class AnnonceController extends AbstractController
     }
 
     /**
-     * @Route("/annonce", name="annonces")
+     * @Route("/annonces", name="annonces")
      */
     public function annonces(AnnonceRepository $repo, PaginatorInterface $paginator, Request $request): Response
     {
@@ -85,17 +86,21 @@ class AnnonceController extends AbstractController
     {
         $user = $security->getUser()->getUsername();
 
+        if ($annonce && $annonce->getContact() != $user) {
+            return $this->redirectToRoute('annonces.create');
+        }
         if (!$annonce) {
             $annonce = new Annonce();
         }
+
         $form = $this->createFormBuilder($annonce)
             ->add('title')
             ->add('description')
             ->add('type', ChoiceType::class, [
                 'choices' => [
                     'Type' => '',
-                    'Offre' => 1,
-                    'Demande' => 2,
+                    'Offre' => 'Offre',
+                    'Demande' => 'Demande',
                 ],
                 'required' => 'required',
                 'choice_attr' => ['Type' => ['disabled' => '']]
@@ -106,15 +111,12 @@ class AnnonceController extends AbstractController
             ->add('imageFile3', FileType::class, ['required' => false, 'label' => '3ème Image'])
             ->add('imageFile4', FileType::class, ['required' => false, 'label' => '4ème Image'])
 
-            ->add('ville', ChoiceType::class, [
-                'choices' => [
-                    'Choisissez la ville de l\'annonce' => '',
-                    'Safi' => 1,
-                    'Marrakech' => 2,
-                    'Essaouira' => 3,
-                ],
-                'required' => 'required',
-                'choice_attr' => ['Choisissez la ville de l\'annonce' => ['disabled' => '']]
+            ->add('ville', EntityType::class, [
+                'class' => Ville::class,
+                'choice_label' => 'ville',
+                'choice_value' => 'ville',
+                'placeholder' => 'Choisissez une ville',
+                'label' => 'Ville',
             ])
             ->add('category', EntityType::class, [
                 'class' => Categorie::class,
@@ -123,7 +125,6 @@ class AnnonceController extends AbstractController
                 'placeholder' => 'Choisissez une categorie',
                 'label' => 'Categorie',
             ])
-            ->add('contact')
             ->add('price')
             ->getForm();
 
@@ -156,6 +157,7 @@ class AnnonceController extends AbstractController
             if ($annonce->getImageFile4() instanceof UploadedFile) {
                 $cacheManager->remove($uploaderHelper->asset($annonce, 'imageFile4'));
             }*/
+
             $annonce->setUpdatedAt(new \DateTime());
             $annonce->setContact($user);
 

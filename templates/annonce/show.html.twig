@@ -58,24 +58,24 @@
                 <div class="column">
                     <img class="demo cursor"
                         src="{% if annonce.filename1 %}{{ vich_uploader_asset(annonce , 'imageFile1') | imagine_filter('my_thumb2') }}{% else %}/assets/images/no-img.jpg{% endif %}"
-                        style="width:100%" onclick="currentSlide(1)" alt="The Woods">
+                        style="width:100%" onclick="currentSlide(1)" alt="{{annonce.title}} 1">
                 </div>
                 <div class="column">
                     <img class="demo cursor"
                         src="{% if annonce.filename2 %}{{ vich_uploader_asset(annonce , 'imageFile2') | imagine_filter('my_thumb2') }}{% else %}/assets/images/no-img.jpg{% endif %}"
-                        style="width:100%" onclick="currentSlide(2)" alt="Cinque Terre">
+                        style="width:100%" onclick="currentSlide(2)" alt="{{annonce.title}} 2">
                 </div>
             </div>
             <div class="row">
                 <div class="column">
                     <img class="demo cursor"
                         src="{% if annonce.filename3 %}{{ vich_uploader_asset(annonce , 'imageFile3') | imagine_filter('my_thumb2') }}{% else %}/assets/images/no-img.jpg{% endif %}"
-                        style="width:100%" onclick="currentSlide(3)" alt="Mountains and fjords">
+                        style="width:100%" onclick="currentSlide(3)" alt="{{annonce.title}} 3">
                 </div>
                 <div class="column">
                     <img class="demo cursor"
                         src="{% if annonce.filename4 %}{{ vich_uploader_asset(annonce , 'imageFile4') | imagine_filter('my_thumb2') }}{% else %}/assets/images/no-img.jpg{% endif %}"
-                        style="width:100%" onclick="currentSlide(4)" alt="Northern Lights">
+                        style="width:100%" onclick="currentSlide(4)" alt="{{annonce.title}} 4">
                 </div>
 
             </div>
@@ -112,7 +112,9 @@
                 </tr>
                 <tr>
                     <td>Ville :</td>
-                    <td>{{annonce.ville}}</td>
+                    <td>{% if annonce.ville.ville is defined and annonce.ville.ville is not null %}
+                        {{annonce.ville.ville}}
+                        {% endif %}</td>
                 </tr>
                 <tr>
                     <td>Contact :</td>

@@ -49,8 +49,8 @@ class AnnonceRepository extends ServiceEntityRepository
         }
 
         if ($search->getVille()) {
-            $query = $query->andwhere('a.ville like :ville')
-                ->setParameter('ville', '%' . $search->getVille() . '%');
+            $query = $query->andwhere('a.ville = :ville')
+                ->setParameter('ville', $search->getVille());
         }
 
 
