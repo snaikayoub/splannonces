@@ -68,7 +68,7 @@ class Ville
     {
         if (!$this->annonces->contains($annonce)) {
             $this->annonces[] = $annonce;
-            $annonce->setVillea($this);
+            $annonce->setVille($this);
         }
 
         return $this;
@@ -78,8 +78,8 @@ class Ville
     {
         if ($this->annonces->removeElement($annonce)) {
             // set the owning side to null (unless already changed)
-            if ($annonce->getVillea() === $this) {
-                $annonce->setVillea(null);
+            if ($annonce->getVille() === $this) {
+                $annonce->setVille(null);
             }
         }
 

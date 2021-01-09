@@ -51,7 +51,8 @@
                     <!--//social-list-->
 
                     {% if app.user %}
-                    <a href="" class="btn btn-primary btn-sm d-none d-lg-flex mx-1">Mes annonces</a>
+                    <a href="{{ path('mes.annonces',{'user': app.user.username}) }}"
+                        class="btn btn-primary btn-sm d-none d-lg-flex mx-1">Mes annonces</a>
                     <a href="{{ path('annonces.create') }}"
                         class="btn btn-primary btn-sm d-none d-lg-flex mx-1">Déposer</a>
                     <a href="{{ path('logout') }}" class="btn btn-primary d-none btn-sm d-lg-flex mx-1">Se

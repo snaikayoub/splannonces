@@ -27,16 +27,16 @@ class AnnonceRepository extends ServiceEntityRepository
      *
      * @return 
      */
-    public function findNotExpiredQuery()
+    public function findNotExpiredAnnonces()
     {
         return $this->createQueryBuilder('a')
             ->andWhere('a.expired = false');
     }
 
-    public function findAllNotExpiredQueryFilter(AnnonceSearch $search): Query
+    public function findfiltredNotExpiredAnnonces(AnnonceSearch $search, $user): Query
     {
 
-        $query = $this->findNotExpiredQuery();
+        $query = $this->findNotExpiredAnnonces();
 
         if ($search->getMaxPrice()) {
             $query = $query->andwhere('a.price <= :maxprice')
@@ -51,6 +51,10 @@ class AnnonceRepository extends ServiceEntityRepository
         if ($search->getVille()) {
             $query = $query->andwhere('a.ville = :ville')
                 ->setParameter('ville', $search->getVille());
+        }
+        if ($user) {
+            $query = $query->andwhere('a.contact = :user')
+                ->setParameter('user', $user);
         }
 
 

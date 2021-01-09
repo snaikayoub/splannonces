@@ -34,9 +34,11 @@ class AnnonceController extends AbstractController
 
     /**
      * @Route("/annonces", name="annonces")
+     * @Route("/annonces/{user}", name="mes.annonces")
      */
-    public function annonces(AnnonceRepository $repo, PaginatorInterface $paginator, Request $request): Response
+    public function annonces(AnnonceRepository $repo, PaginatorInterface $paginator, Request $request, $user = null): Response
     {
+
         $search = new AnnonceSearch;
         $form = $this->createForm(AnnonceSearchType::class, $search);
         $form->handleRequest($request);
@@ -44,7 +46,7 @@ class AnnonceController extends AbstractController
         //dd($search);
 
         $annonces = $paginator->paginate(
-            $repo->findAllNotExpiredQueryFilter($search),
+            $repo->findfiltredNotExpiredAnnonces($search, $user),
             $request->query->getInt('page', 1), /*page number*/
             9 /*limit per page*/
         );
