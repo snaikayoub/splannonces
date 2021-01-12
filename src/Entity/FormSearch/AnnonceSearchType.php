@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Form;
+namespace App\Entity\FormSearch;
 
 use App\Entity\Categorie;
-use App\Entity\AnnonceSearch;
+use App\Entity\FormSearch\AnnonceSearch;
 use App\Entity\Ville;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

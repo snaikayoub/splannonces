@@ -7,9 +7,15 @@ use Serializable;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(
+ *      "username",
+ *      message="Le propriétaire de cet email est déja inscrit, consultez la rubrique mot de passe oublié"
+ * )
  */
 class User implements UserInterface, \Serializable
 {
@@ -21,14 +27,29 @@ class User implements UserInterface, \Serializable
     private $id;
 
     /**
+     * @Assert\Email
      * @ORM\Column(type="string", length=255)
      */
     private $username;
 
     /**
+     * @Assert\EqualTo(propertyPath="username",message="Vous n'avez pas saisie le meme Email")
+     */
+    public $confirm_username;
+
+    /**
+     * @Assert\Length(
+     *      min = 6,
+     *      minMessage = "Votre mot de passe doit faire au minimum 6 caractères"
+     *      )
      * @ORM\Column(type="string", length=255)
      */
     private $password;
+
+    /**
+     * @Assert\EqualTo(propertyPath="password",message="Vous n'avez pas saisie le meme Mot de passe")
+     */
+    public $confirm_password;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -36,6 +57,10 @@ class User implements UserInterface, \Serializable
     private $ville;
 
     /**
+     * @Assert\Regex(
+     *      pattern = "/^0[0-9]{9}/i",
+     *      message = "Veuillez saisire un Numéro de Téléphone valide"
+     * )
      * @ORM\Column(type="string", length=255)
      */
     private $telephone;

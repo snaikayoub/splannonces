@@ -1,0 +1,8 @@
+{
+    "workbench.colorCustomizations": {
+        "terminal.foreground": "#00FD61",
+        "terminal.background": "#383737"
+    },
+    "editor.wordWrap": "wordWrapColumn",
+    "html.format.wrapLineLength": 160
+}

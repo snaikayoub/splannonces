@@ -16,7 +16,7 @@
 
     </div>
     <div class="row">
-        <div class="col-md-4">{{ form_row(form.telephone) }}</div>
+        <div class="col-md-4">{{ form_row(form.telephone,{'attr':{'placeholder' : '06-11-11-11-11','Maxlength':10}})}}</div>
         <div class="col-md-4">{{ form_row(form.ville) }}</div>
         <div class="col-md-4">{{ form_row(form.organisation) }}</div>
 
@@ -26,11 +26,17 @@
     <div class="row">
         <div class="col-md-6">{{ form_row(form.username,{'attr':{'placeholder' : 'Votre Email'},'label':'Email'})}}
         </div>
+        <div class="col-md-6">{{ form_row(form.confirm_username,{'attr':{'placeholder' : 'Confirmez votre Email'},'label':'Confirmation d\'email'})}}
+        </div>
 
     </div>
     <div class="row">
-        <div class="col-md-6">{{ form_row(form.password,{'attr':{'placeholder' : 'Votre Mot de passe'},'label':'Mot de
-            passe'})}}</div>
+        <div class="col-md-6">
+            {{ form_row(form.password,{'attr':{'placeholder' : 'Votre Mot de passe'},'label':'Mot de passe','data':''})}}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.confirm_password,{'attr':{'placeholder' : 'Confirmez votre Mot de passe'},'label':'Confirmation du mot de passe'})}}
+        </div>
 
     </div>
 

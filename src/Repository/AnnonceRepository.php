@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Annonce;
-use App\Entity\AnnonceSearch;
+use App\Entity\FormSearch\AnnonceSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
@@ -33,24 +33,24 @@ class AnnonceRepository extends ServiceEntityRepository
             ->andWhere('a.expired = false');
     }
 
-    public function findfiltredNotExpiredAnnonces(AnnonceSearch $search, $user): Query
+    public function findfiltredNotExpiredAnnonces(AnnonceSearch $searcher, $user): Query
     {
 
         $query = $this->findNotExpiredAnnonces();
 
-        if ($search->getMaxPrice()) {
+        if ($searcher->getMaxPrice()) {
             $query = $query->andwhere('a.price <= :maxprice')
-                ->setParameter('maxprice', $search->getMaxPrice());
+                ->setParameter('maxprice', $searcher->getMaxPrice());
         }
 
-        if ($search->getCategory()) {
+        if ($searcher->getCategory()) {
             $query = $query->andwhere('a.category = :category')
-                ->setParameter('category', $search->getCategory()->getId());
+                ->setParameter('category', $searcher->getCategory()->getId());
         }
 
-        if ($search->getVille()) {
+        if ($searcher->getVille()) {
             $query = $query->andwhere('a.ville = :ville')
-                ->setParameter('ville', $search->getVille());
+                ->setParameter('ville', $searcher->getVille());
         }
         if ($user) {
             $query = $query->andwhere('a.contact = :user')

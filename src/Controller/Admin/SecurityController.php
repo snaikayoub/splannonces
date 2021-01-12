@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -42,7 +43,9 @@ class SecurityController extends AbstractController
         $form = $this->createFormBuilder($user)
             ->add('nom')
             ->add('prenom')
-            ->add('telephone')
+            ->add('telephone', null, [
+                'attr' => ['maxlength' => 10]
+            ])
             ->add('ville', EntityType::class, [
                 'class' => Ville::class,
                 'choice_label' => 'ville',
@@ -60,7 +63,9 @@ class SecurityController extends AbstractController
                 'choice_attr' => ['Organisation' => ['disabled' => '']]
             ])
             ->add('username')
-            ->add('password')
+            ->add('confirm_username')
+            ->add('password', PasswordType::class)
+            ->add('confirm_password', PasswordType::class)
             ->getForm();
 
         $form->handleRequest($request);

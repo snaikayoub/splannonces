@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Annonce;
 
 use App\Entity\Annonce;
-use App\Entity\AnnonceSearch;
 use App\Entity\Categorie;
 use App\Entity\Ville;
-use App\Repository\CategorieRepository;
-use App\Form\AnnonceSearchType;
+use App\Entity\FormSearch\AnnonceSearch;
+use App\Entity\FormSearch\AnnonceSearchType;
 use App\Repository\AnnonceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -20,6 +19,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\CategorieRepository;
+
 
 
 class AnnonceController extends AbstractController
@@ -39,14 +40,14 @@ class AnnonceController extends AbstractController
     public function annonces(AnnonceRepository $repo, PaginatorInterface $paginator, Request $request, $user = null): Response
     {
 
-        $search = new AnnonceSearch;
-        $form = $this->createForm(AnnonceSearchType::class, $search);
+        $searcher = new AnnonceSearch;
+        $form = $this->createForm(AnnonceSearchType::class, $searcher);
         $form->handleRequest($request);
 
         //dd($search);
 
         $annonces = $paginator->paginate(
-            $repo->findfiltredNotExpiredAnnonces($search, $user),
+            $repo->findfiltredNotExpiredAnnonces($searcher, $user),
             $request->query->getInt('page', 1), /*page number*/
             9 /*limit per page*/
         );
@@ -72,9 +73,15 @@ class AnnonceController extends AbstractController
     /**
      * @Route("/annonce/{id}/delete", name="annonces.delete")
      */
-    public function delete(AnnonceRepository $repo, $id, EntityManagerInterface $manager): Response
+    public function delete(AnnonceRepository $repo, $id, EntityManagerInterface $manager, Security $security): Response
     {
+        $user = $security->getUser()->getUsername();
         $annonce = $repo->find($id);
+        if ($annonce->getContact() != $user) {
+            return $this->redirectToRoute('annonces.show', [
+                'id' => $id
+            ]);
+        }
         $manager->remove($annonce);
         $manager->flush();
         return $this->redirectToRoute('annonces');
@@ -89,7 +96,9 @@ class AnnonceController extends AbstractController
         $user = $security->getUser()->getUsername();
 
         if ($annonce && $annonce->getContact() != $user) {
-            return $this->redirectToRoute('annonces.create');
+            return $this->redirectToRoute('annonces.show', [
+                'id' => $annonce->getId()
+            ]);
         }
         if (!$annonce) {
             $annonce = new Annonce();

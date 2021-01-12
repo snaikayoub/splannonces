@@ -23,11 +23,17 @@ class Annonce
     private $id;
 
     /**
+     * @Assert\Length(
+     *      min = 5,
+     *      minMessage = "Le titre doit faire au minimum 5 characters")
      * @ORM\Column(type="string", length=255)
      */
     private $title;
 
     /**
+     * @Assert\Length(
+     *      min = 10,
+     *      minMessage = "La description doit faire au minimum 10 characters")
      * @ORM\Column(type="text", length=255)
      */
     private $description;
@@ -47,7 +53,8 @@ class Annonce
      * 
      * @Vich\UploadableField(mapping="annonces_img", fileNameProperty="fileName1")
      * @Assert\Image(
-     *  mimeTypes = "image/jpeg"
+     *  mimeTypes = "image/jpeg",
+     *  mimeTypesMessage = "Seul les images de Type JPG/JPEG sont acceptées"
      * )
      * @var File|null
      */
@@ -63,7 +70,8 @@ class Annonce
      * 
      * @Vich\UploadableField(mapping="annonces_img", fileNameProperty="fileName2")
      * @Assert\Image(
-     *  mimeTypes = "image/jpeg"
+     *  mimeTypes = "image/jpeg",
+     *  mimeTypesMessage = "Seul les images de Type JPG/JPEG sont acceptées"
      * )
      * @var File|null
      */
@@ -79,7 +87,8 @@ class Annonce
      * 
      * @Vich\UploadableField(mapping="annonces_img", fileNameProperty="fileName3")
      * @Assert\Image(
-     *  mimeTypes = "image/jpeg"
+     *  mimeTypes = "image/jpeg",
+     *  mimeTypesMessage = "Seul les images de Type JPG/JPEG sont acceptées"
      * )
      * @var File|null
      */
@@ -95,7 +104,8 @@ class Annonce
      * 
      * @Vich\UploadableField(mapping="annonces_img", fileNameProperty="fileName4")
      * @Assert\Image(
-     *  mimeTypes = "image/jpeg"
+     *  mimeTypes = "image/jpeg",
+     *  mimeTypesMessage = "Seul les images de Type JPG/JPEG sont acceptées"
      * )
      * @var File|null
      */

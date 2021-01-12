@@ -42,12 +42,12 @@
 {% block body %}
 <div class="annoces-container row">
     {% for annonce in annonces %}
+
+
     <div class="col-12 col-lg-4 py-3">
         <div class="card shadow-sm">
             {% if annonce.fileName1 %}
-            <img class="card-img-top"
-                src="{{ vich_uploader_asset(annonce , 'imageFile1') | imagine_filter('my_thumb1') }}"
-                alt="Card image cap">
+            <img class="card-img-top" src="{{ vich_uploader_asset(annonce , 'imageFile1') | imagine_filter('my_thumb1') }}" alt="Card image cap">
             {% endif %}
             <div class="card-body">
                 <h5 class="card-title mb-3">
@@ -58,6 +58,7 @@
                     <span class="card-title-text"> {{ annonce.title}} </span>
                 </h5>
                 <div class="card-text">
+
                     Section overview goes here. Lorem ipsum dolor sit amet, consectetuer adipiscing
                     elit. Aenean commodo ligula eget dolor.
                 </div>
@@ -70,6 +71,12 @@
         <!--//card-->
     </div>
     <!--//col-->
+    {% if loop.index is divisible by(5) %}
+    <div class="col-12 col-lg-4 py-3">
+        <a href="#" class="btn btn-danger">publicité</a>
+    </div>
+    {% endif %}
+
 
     {% endfor %}
 </div>
