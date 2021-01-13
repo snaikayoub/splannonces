@@ -22,9 +22,17 @@
     </div>
 
     <div class="row">
+        {% if app.user %}
         <div class="col-md-6">{{ form_row(form.ville) }}</div>
         <div class="col-md-6">{{ form_row(form.price,{'attr':{'placeholder' : 'EX : 999999'},'label':'Montant :'})}}
         </div>
+
+        {% else %}
+        <div class="col-md-4">{{ form_row(form.ville) }}</div>
+        <div class="col-md-4">{{ form_row(form.price,{'attr':{'placeholder' : 'EX : 999999'},'label':'Montant :'})}}
+        </div>
+        <div class="col-md-4">{{ form_row(form.contact) }}</div>
+        {% endif %}
     </div>
     <div class="row">
         <div class="col col-md-3">
@@ -57,7 +65,8 @@
             <a href="{{ path('annonces') }}" class="btn btn-primary mx-auto">Retour aux Annonces</a>
         </div>
     </div>
-    {{ form_end(form) }}
+    {{ form_widget(form._token) }}
+    {{ form_end(form, {'render_rest': false}) }}
 </div>
 {% endblock body %}
 

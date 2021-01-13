@@ -75,7 +75,10 @@ class AnnonceController extends AbstractController
      */
     public function delete(AnnonceRepository $repo, $id, EntityManagerInterface $manager, Security $security): Response
     {
-        $user = $security->getUser()->getUsername();
+        $user = null;
+        if ($security->getUser()) {
+            $user = $security->getUser()->getUsername();
+        }
         $annonce = $repo->find($id);
         if ($annonce->getContact() != $user) {
             return $this->redirectToRoute('annonces.show', [
@@ -93,13 +96,17 @@ class AnnonceController extends AbstractController
      */
     public function form(Annonce $annonce = null, Request $request, EntityManagerInterface $manager, Security $security): Response
     {
-        $user = $security->getUser()->getUsername();
+        $user = null;
+        if ($security->getUser()) {
+            $user = $security->getUser()->getUsername();
+        }
 
         if ($annonce && $annonce->getContact() != $user) {
             return $this->redirectToRoute('annonces.show', [
                 'id' => $annonce->getId()
             ]);
         }
+
         if (!$annonce) {
             $annonce = new Annonce();
         }
@@ -137,15 +144,18 @@ class AnnonceController extends AbstractController
                 'label' => 'Categorie',
             ])
             ->add('price')
+            ->add('contact')
             ->getForm();
-
+        //dd($user);
         $form->handleRequest($request);
 
 
         if ($form->isSubmitted() && $form->isValid()) {
             if (!$annonce->getId()) {
                 $annonce->setCreatedAt(new \DateTime());
-                $annonce->setContact($user);
+                if ($security->getUser()) {
+                    $annonce->setContact($user);
+                }
                 $annonce->setExpired(false);
 
                 $manager->persist($annonce);
@@ -170,8 +180,10 @@ class AnnonceController extends AbstractController
             }*/
 
             $annonce->setUpdatedAt(new \DateTime());
-            $annonce->setContact($user);
 
+            if ($security->getUser()) {
+                $annonce->setContact($user);
+            }
             $manager->persist($annonce);
             $manager->flush();
 

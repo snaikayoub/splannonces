@@ -9,8 +9,8 @@
     <div class="theme-bg-shapes-left"></div>
     <div class="container">
         <h1 class="page-heading single-col-max mx-auto">Annonces Gratuites</h1>
-        <div class="page-intro single-col-max mx-auto">Partagez vos annonces sans limitations du nombre sans frais, vous
-            n'avez qu'a vous enregistrez</div>
+        <div class="page-intro single-col-max mx-auto">Partagez vos annonces par tout au Maroc, en vous inscrivant, vous pourrez gérer vos annonces et mettre
+            des offres sur des annonces</div>
         <div class="main-search pt-3 d-block mx-auto">
 
             {{ form_start(form) }}
@@ -38,7 +38,7 @@
 <!--//page-header-->
 
 {% endblock page_header %}
-
+{% block sidbar %}<div class="col-lg-2 my-5 py-3 mx-5"></div>{% endblock %}
 {% block body %}
 <div class="annoces-container row">
     {% for annonce in annonces %}
@@ -73,7 +73,11 @@
     <!--//col-->
     {% if loop.index is divisible by(5) %}
     <div class="col-12 col-lg-4 py-3">
-        <a href="#" class="btn btn-danger">publicité</a>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <a href="#" class="btn btn-danger">publicité</a>
+            </div>
+        </div>
     </div>
     {% endif %}
 
