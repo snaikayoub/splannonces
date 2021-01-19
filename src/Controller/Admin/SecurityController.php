@@ -9,9 +9,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -66,20 +67,22 @@ class SecurityController extends AbstractController
             ->add('confirm_username')
             ->add('password', PasswordType::class)
             ->add('confirm_password', PasswordType::class)
+            ->add('imgprofil', FileType::class, ['required' => false, 'label' => 'Votre Photo de Profil'])
             ->getForm();
 
         $form->handleRequest($request);
 
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if (!$user->getId()) {
+                $user->setCreatedAt(new \DateTime());
+                $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
+                $manager->persist($user);
+                $manager->flush();
 
-            $user->setCreatedAt(new \DateTime());
-            $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
-            $manager->persist($user);
-            $manager->flush();
 
-
-            return $this->redirectToRoute('login');
+                return $this->redirectToRoute('login');
+            }
         }
         $formView = $form->createView();
         return $this->render('security/register.html.twig', [

@@ -39,7 +39,15 @@
         </div>
 
     </div>
-
+    <div class="row">
+        <div class="col-md-10">
+            {{ form_row(form.imgprofil)}}
+        </div>
+        <div class="col-md-2">
+            <img src="{% if user is defined and user.fileprofil %}{{ vich_uploader_asset(user , 'imgprofil') | imagine_filter('my_thumb3') }}{% else %}/assets/images/no-img50.jpg{% endif %}"
+                style="width:100%">
+        </div>
+    </div>
 
     <div class="row py-3 ">
         <button class="btn btn-primary mx-auto col-lg-3 m-3">Enregistrer</button>

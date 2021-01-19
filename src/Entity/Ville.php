@@ -25,7 +25,7 @@ class Ville
     private $ville;
 
     /**
-     * @ORM\OneToMany(targetEntity=Annonce::class, mappedBy="villea")
+     * @ORM\OneToMany(targetEntity=Annonce::class, mappedBy="ville")
      */
     private $annonces;
 

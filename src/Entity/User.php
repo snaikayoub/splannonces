@@ -8,10 +8,13 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @Vich\Uploadable
  * @UniqueEntity(
  *      "username",
  *      message="Le propriétaire de cet email est déja inscrit, consultez la rubrique mot de passe oublié"
@@ -84,6 +87,23 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $fileprofil;
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="annonces_img", fileNameProperty="fileprofil")
+     * @Assert\Image(
+     *  mimeTypes = "image/jpeg",
+     *  mimeTypesMessage = "Seul les images de Type JPG/JPEG sont acceptées"
+     * )
+     * @var File|null
+     */
+    private $imgprofil;
 
     public function getId(): ?int
     {
@@ -230,7 +250,8 @@ class User implements UserInterface, \Serializable
             $this->telephone,
             $this->nom,
             $this->prenom,
-            $this->organisation
+            $this->organisation,
+            $this->fileprofil
 
         ]);
     }
@@ -254,7 +275,9 @@ class User implements UserInterface, \Serializable
             $this->telephone,
             $this->nom,
             $this->prenom,
-            $this->organisation
+            $this->organisation,
+            $this->fileprofil
+
         ) = unserialize($serialized, ['allowed_classes' => false]);
     }
 
@@ -266,6 +289,45 @@ class User implements UserInterface, \Serializable
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imgprofil
+     */
+    public function setImgprofil(?File $imgprofil = null): void
+    {
+
+        $this->imgprofil = $imgprofil;
+
+        if (null !== $imgprofil) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getImgprofil(): ?File
+    {
+        return $this->imgprofil;
+    }
+
+    public function getFileprofil(): ?string
+    {
+        return $this->fileprofil;
+    }
+
+    public function setFileprofil(?string $fileprofil): self
+    {
+        $this->fileprofil = $fileprofil;
 
         return $this;
     }

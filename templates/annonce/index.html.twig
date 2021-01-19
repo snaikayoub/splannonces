@@ -3,12 +3,13 @@
 {% block title %} {{ title }} {% endblock %}
 
 {% block page_header %}
+
 <!--//header-->
-<div class="page-header theme-bg-dark py-1 text-center position-relative">
+<div class="bg-secondary py-1 text-center position-relative">
     <div class="theme-bg-shapes-right"></div>
     <div class="theme-bg-shapes-left"></div>
     <div class="container">
-        <h1 class="page-heading single-col-max mx-auto">Annonces Gratuites</h1>
+        <h4 class="page-heading single-col-max mx-auto">Filtrez les annonces</h4>
         <div class="page-intro single-col-max mx-auto">Partagez vos annonces par tout au Maroc, en vous inscrivant, vous pourrez gérer vos annonces et mettre
             des offres sur des annonces</div>
         <div class="main-search pt-3 d-block mx-auto">
@@ -25,12 +26,14 @@
                     {{ form_row(form.ville) }}
                 </div>
                 <div class="col">
-                    <button type="submit" class="btn btn-secondary">Rechercher</button>
+                    <button type="submit" class="btn btn-info">Rechercher</button>
                 </div>
 
 
             </div>
             {{ form_end(form) }}
+
+
 
         </div>
     </div>
@@ -38,14 +41,16 @@
 <!--//page-header-->
 
 {% endblock page_header %}
-{% block sidbar %}<div class="col-lg-2 my-5 py-3 mx-5"></div>{% endblock %}
+{% block sidbar %}
+<!--<div class="col-lg-2 my-5 py-3 mx-5"></div>-->
+{% endblock %}
 {% block body %}
 <div class="annoces-container row">
     {% for annonce in annonces %}
 
 
     <div class="col-12 col-lg-4 py-3">
-        <div class="card shadow-sm">
+        <a class="card shadow-sm" href="{{ path('annonces.show',{'id': annonce.id}) }}">
             {% if annonce.fileName1 %}
             <img class="card-img-top" src="{{ vich_uploader_asset(annonce , 'imageFile1') | imagine_filter('my_thumb1') }}" alt="Card image cap">
             {% endif %}
@@ -58,16 +63,14 @@
                     <span class="card-title-text"> {{ annonce.title}} </span>
                 </h5>
                 <div class="card-text">
-
-                    Section overview goes here. Lorem ipsum dolor sit amet, consectetuer adipiscing
-                    elit. Aenean commodo ligula eget dolor.
+                    {{ annonce.description}}
                 </div>
                 <div class="price">{{ annonce.price }}</div>
-                <a class="card-link-mask" href="{{ path('annonces.show',{'id': annonce.id}) }}"></a>
+
             </div>
             <!--//card-body-->
 
-        </div>
+        </a>
         <!--//card-->
     </div>
     <!--//col-->

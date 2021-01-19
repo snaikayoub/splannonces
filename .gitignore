@@ -3,18 +3,18 @@
 /.env.local
 /.env.local.php
 /.env.*.local
-/config/secrets/prod/prod.decrypt.private.php
-/public/bundles/
+#/config/secrets/prod/prod.decrypt.private.php
+###/public/bundles/
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
 
-###> symfony/phpunit-bridge ###
+> symfony/phpunit-bridge ###
 .phpunit
 .phpunit.result.cache
 /phpunit.xml
-###< symfony/phpunit-bridge ###
+< symfony/phpunit-bridge ###
 
-###> liip/imagine-bundle ###
+> liip/imagine-bundle ###
 /public/media/cache/
-###< liip/imagine-bundle ###
+< liip/imagine-bundle ###

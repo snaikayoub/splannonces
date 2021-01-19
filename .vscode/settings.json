@@ -4,5 +4,6 @@
         "terminal.background": "#383737"
     },
     "editor.wordWrap": "wordWrapColumn",
-    "html.format.wrapLineLength": 160
+    "html.format.wrapLineLength": 160,
+    "git.ignoreLimitWarning": true
 }
