@@ -45,12 +45,12 @@
 <!--<div class="col-lg-2 my-5 py-3 mx-5"></div>-->
 {% endblock %}
 {% block body %}
-<div class="annoces-container row">
+<div class="container row">
     {% for annonce in annonces %}
 
 
-    <div class="col-12 col-lg-4 py-3">
-        <a class="card shadow-sm" href="{{ path('annonces.show',{'id': annonce.id}) }}">
+    <div class="col-12 col-lg-4 py-1">
+        <div class="card shadow-lg">
             {% if annonce.fileName1 %}
             <img class="card-img-top" src="{{ vich_uploader_asset(annonce , 'imageFile1') | imagine_filter('my_thumb1') }}" alt="Card image cap">
             {% endif %}
@@ -63,14 +63,20 @@
                     <span class="card-title-text"> {{ annonce.title}} </span>
                 </h5>
                 <div class="card-text">
-                    {{ annonce.description}}
+                    {{ annonce.description | length > 20 ? annonce.description|slice(0, 20) ~ '…' : annonce.description }}
                 </div>
-                <div class="price">{{ annonce.price }}</div>
+                <br>
+                <div class="price d-lg-flex justify-content-center">
+                    <h6>{{ annonce.price }}&nbsp;Dhs</h6>
+                </div>
 
+            </div>
+            <div class="card-footer">
+                <a href="{{ path('annonces.show',{'id': annonce.id}) }}" class="btn btn-success d-lg-flex justify-content-center ">Consulter</a>
             </div>
             <!--//card-body-->
 
-        </a>
+        </div>
         <!--//card-->
     </div>
     <!--//col-->

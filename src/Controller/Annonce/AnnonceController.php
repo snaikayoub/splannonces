@@ -179,11 +179,8 @@ class AnnonceController extends AbstractController
                 $cacheManager->remove($uploaderHelper->asset($annonce, 'imageFile4'));
             }*/
 
+            $annonce->setContact($user);
             $annonce->setUpdatedAt(new \DateTime());
-
-            if ($security->getUser()) {
-                $annonce->setContact($user);
-            }
             $manager->persist($annonce);
             $manager->flush();
 

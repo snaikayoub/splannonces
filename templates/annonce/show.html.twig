@@ -10,9 +10,9 @@
 
 {% block body %}
 <!-- Container for the image gallery -->
-<div class="contain">
-    <div class="container-ig row my-2">
-        <div class="col-md-6 mx-2">
+<div class="container">
+    <div class="container row m-3">
+        <div class="col-md-6 mx-3">
 
             <!-- Full-width images with number text -->
             <div class="mySlides">
@@ -81,7 +81,8 @@
             </div>
         </div>
     </div>
-    <div class="m-3 container">
+    <br>
+    <div class="container m-3 ">
         <table class="table">
             <thead>
                 <tr>
@@ -96,7 +97,7 @@
                 </tr>
                 <tr>
                     <td>Déscription :</td>
-                    <td>{{annonce.description}}</td>
+                    <td> {{ annonce.description | length > 20 ? annonce.description|slice(0, 20) ~ '…' : annonce.description }}</td>
                 </tr>
                 <tr>
                     <td>Type :</td>
@@ -127,12 +128,12 @@
             </tbody>
         </table>
     </div>
-    <div class="row">
+    <br>
+    <div class="container m-3 row">
         {% if app.user is not null and app.user.username == annonce.contact %}
         <a href="{{ path('annonce.edit',{'id': annonce.id}) }}" class="btn btn-primary mx-auto col-lg-3">Editer</a>
 
-        <a href="{{ path('annonces.delete',{'id': annonce.id}) }}"
-            class="btn btn-primary mx-auto col-lg-3">Supprimer</a>{% endif %}
+        <a href="{{ path('annonces.delete',{'id': annonce.id}) }}" class="btn btn-primary mx-auto col-lg-3">Supprimer</a>{% endif %}
         <a href="{{ path('annonces') }}" class="btn btn-primary mx-auto col-lg-3">Retour aux Annonces</a>
     </div>
 </div>

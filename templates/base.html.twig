@@ -16,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
 
     <!-- FontAwesome JS-->
-    <script defer src="{{ asset('assets/fontawesome/js/all.min.js') }}"></script>
+    <script defer src="{{ asset('assets/js/all.min.js') }}"></script>
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -41,31 +41,37 @@
                 </span></a>
         </div>
         <div>
-            <a href="{{ path('annonces.create') }}" class="btn btn-light d-none d-lg-flex mx-1">Publication &nbsp;&nbsp; <i
-                    class="fas fa-bullhorn fa-lg "></i></a>
+            <a href="{{ path('annonces.create') }}" class="btn btn-light d-none d-lg-flex mx-1">Publication &nbsp;&nbsp;
+                <i class="fas fa-bullhorn fa-lg"></i></a>
         </div>
 
         <ul class="navbar-nav ml-auto d-flex justify-content-end pr-2" id="navbar-nav">
 
             {% if app.user.username is defined and app.user.username in app.request.uri %}
-            <li class="nav-item">
+            <li class="nav-item my-auto">
                 <a href="{{ path('home') }}" class="btn btn-light d-none d-lg-flex mx-1">
-                    Toutes les annonces</a>
+                    Toutes les annonces
+                </a>
             </li>
             {% endif %}
 
             {% if app.user %}
 
-            <li class="dropdown">
-                <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{ app.user.nom }}&nbsp;{{ app.user.prenom }}&nbsp; <i class="fas fa-user-tie fa-lg"></i>
-                </button>
-                <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton">
+            <li class="dropdown ">
+                <a class="btn btn-secondary rounded-circle p-0" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true">
+                    {% if app.user.fileprofil %}
+                    <img class="rounded-circle" src="{{ vich_uploader_asset(app.user , 'imgprofil') | imagine_filter('my_thumb4') }}" style="width: 100%;">
+
+                    {% else %}
+                    <i class="fas fa-user-tie fa-lg"></i>
+                    {% endif %}
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                     <li class="dropdown-item">
                         <a href="{{ path('logout') }}" class="btn btn-sm d-none d-lg-flex mx-1 rounded">Déconnexion</a>
                     </li>
                     <li class="dropdown-item">
-                        <a href="" class="btn btn-sm d-none d-lg-flex mx-1 rounded">Parametres</a>
+                        <a href="{{ path('account.setting',{'id':app.user.id})}}" class="btn btn-sm d-none d-lg-flex mx-1 rounded">Parametres</a>
                     </li>
                     <li class="dropdown-item">
                         <a href="{{ path('mes.annonces',{'user': app.user.username}) }}" class="btn  btn-sm d-none d-lg-flex mx-1 rounded">Mes annonces</a>
@@ -74,7 +80,7 @@
                     <div class="dropdown-divider"></div>
 
                     <li class="dropdown-item">
-                        <a href="{{ path('logout') }}" class="btn btn-sm d-none d-lg-flex mx-1 rounded">Contactez-nous</a>
+                        <a href="" class="btn btn-sm d-none d-lg-flex mx-1 rounded">Contactez-nous</a>
                     </li>
 
                 </ul>
@@ -113,24 +119,7 @@
 
     </div>
 
-    <section class="cta-section text-center py-5 theme-bg-dark position-relative">
-        <div class="theme-bg-shapes-right"></div>
-        <div class="theme-bg-shapes-left"></div>
-        <div class="container">
-            <h3 class="mb-2 text-white mb-3">Launch Your Software Project Like A Pro</h3>
-            <div class="section-intro text-white mb-3 single-col-max mx-auto">Want to launch your software project and
-                start getting traction from your target users? Check out our premium <a class="text-white"
-                    href="https://themes.3rdwavemedia.com/bootstrap-templates/startup/coderpro-bootstrap-4-startup-template-for-software-projects/">Bootstrap
-                    4 startup template CoderPro</a>! It has everything you need to promote your product.</div>
-            <div class="pt-3 text-center">
-                <a class="btn btn-light"
-                    href="https://themes.3rdwavemedia.com/bootstrap-templates/startup/coderpro-bootstrap-4-startup-template-for-software-projects/">Get
-                    CoderPro<i class="fas fa-arrow-alt-circle-right ml-2"></i></a>
-            </div>
-        </div>
 
-    </section>
-    <!--//cta-section-->
 
     <footer class="footer">
 
@@ -147,9 +136,7 @@
             <!--//social-list-->
 
             <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
-            <small class="copyright">Designed with <i class="fas fa-heart" style="color: #fb866a;"></i> by <a class="theme-link"
-                    href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for
-                developers</small>
+            <small class="copyright">Produced By <i class="fas fa-heart" style="color: #6afb8e;"></i><a> SNAIKI Ayoub</a></small>
 
 
         </div>

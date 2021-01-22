@@ -3,6 +3,7 @@
 namespace App\Listner;
 
 use App\Entity\Annonce;
+use App\Entity\User;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
@@ -41,36 +42,49 @@ class ImageCacheSubscriber implements EventSubscriber
     public function preRemove(LifecycleEventArgs $ArgsR)
     {
         $entity = $ArgsR->getEntity();
-        if (!$entity instanceof Annonce) {
+        if ($entity instanceof Annonce) {
+
+            $this->cacheManager->remove($this->uploaderHelper->asset($entity, 'imageFile1'));
+            $this->cacheManager->remove($this->uploaderHelper->asset($entity, 'imageFile2'));
+            $this->cacheManager->remove($this->uploaderHelper->asset($entity, 'imageFile3'));
+            $this->cacheManager->remove($this->uploaderHelper->asset($entity, 'imageFile4'));
             return;
         }
-
-        $this->cacheManager->remove($this->uploaderHelper->asset($entity, 'imageFile1'));
-        $this->cacheManager->remove($this->uploaderHelper->asset($entity, 'imageFile2'));
-        $this->cacheManager->remove($this->uploaderHelper->asset($entity, 'imageFile3'));
-        $this->cacheManager->remove($this->uploaderHelper->asset($entity, 'imageFile4'));
+        if ($entity instanceof User) {
+            $this->cacheManager->remove($this->uploaderHelper->asset($entity, 'fileprofil'));
+            return;
+        }
     }
     public function preUpdate(PreUpdateEventArgs $ArgsU)
     {
         $entity = $ArgsU->getEntity();
         $object = $ArgsU->getObject();
-
-        if (!$ArgsU->getEntity() instanceof Annonce) {
-            return;
-        }
         $val = "/images/annonces/";
 
-        if ($ArgsU->hasChangedField('fileName1')) {
-            $this->cacheManager->remove($val . $ArgsU->getOldValue('fileName1'));
+        if ($ArgsU->getEntity() instanceof Annonce) {
+
+
+
+            if ($ArgsU->hasChangedField('fileName1')) {
+                $this->cacheManager->remove($val . $ArgsU->getOldValue('fileName1'));
+            }
+            if ($ArgsU->hasChangedField('fileName2')) {
+                $this->cacheManager->remove($val . $ArgsU->getOldValue('fileName2'));
+            }
+            if ($ArgsU->hasChangedField('fileName3')) {
+                $this->cacheManager->remove($val . $ArgsU->getOldValue('fileName3'));
+            }
+            if ($ArgsU->hasChangedField('fileName4')) {
+                $this->cacheManager->remove($val . $ArgsU->getOldValue('fileName4'));
+            }
+            return;
         }
-        if ($ArgsU->hasChangedField('fileName2')) {
-            $this->cacheManager->remove($val . $ArgsU->getOldValue('fileName2'));
-        }
-        if ($ArgsU->hasChangedField('fileName3')) {
-            $this->cacheManager->remove($val . $ArgsU->getOldValue('fileName3'));
-        }
-        if ($ArgsU->hasChangedField('fileName4')) {
-            $this->cacheManager->remove($val . $ArgsU->getOldValue('fileName4'));
+        if ($ArgsU->getEntity() instanceof User) {
+
+            if ($ArgsU->hasChangedField('fileprofil')) {
+                $this->cacheManager->remove($val . $ArgsU->getOldValue('fileprofil'));
+            }
+            return;
         }
     }
 }
