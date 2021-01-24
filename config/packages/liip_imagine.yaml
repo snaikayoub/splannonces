@@ -15,11 +15,11 @@ liip_imagine:
             filters:
                 # create a thumbnail: set size to 120x90 and use the "outbound" mode
                 # to crop the image when the size ratio of the input differs
-                thumbnail: { size: [470, 350], mode: outbound }
+                thumbnail: { size: [300, 200], mode: outbound }
 
                 upscale:
                     # input 1980x1280px -> output 3960x2560px
-                    min: [470, 350]
+                    min: [300, 200]
                     # the name of the "filter set"
         my_thumb2:
             # adjust the image quality to 75%

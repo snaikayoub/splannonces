@@ -119,7 +119,7 @@
                 </tr>
                 <tr>
                     <td>Contact :</td>
-                    <td>{{annonce.contact}}</td>
+                    <td>{% if app.user %} {{annonce.contact }}{% else %}{{annonce.contact | replace({'Anony' : ''})}}{% endif %}</td>
                 </tr>
                 <tr>
                     <td>Price :</td>

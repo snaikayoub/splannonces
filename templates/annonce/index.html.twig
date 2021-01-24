@@ -50,9 +50,10 @@
 
 
     <div class="col-12 col-lg-4 py-1">
-        <div class="card shadow-lg">
+        <div class="card card-block shadow-lg">
             {% if annonce.fileName1 %}
-            <img class="card-img-top" src="{{ vich_uploader_asset(annonce , 'imageFile1') | imagine_filter('my_thumb1') }}" alt="Card image cap">
+            <img class="card-img-top" src="{{ vich_uploader_asset(annonce , 'imageFile1') | imagine_filter('my_thumb1') }}" alt="Card image cap"
+                style="height: 200px;width:298px;">
             {% endif %}
             <div class="card-body">
                 <h5 class="card-title mb-3">
@@ -63,7 +64,7 @@
                     <span class="card-title-text"> {{ annonce.title}} </span>
                 </h5>
                 <div class="card-text">
-                    {{ annonce.description | length > 20 ? annonce.description|slice(0, 20) ~ '…' : annonce.description }}
+                    {{ annonce.description | length > 20 ? annonce.description|slice(0, 30) ~ '…' : annonce.description }}
                 </div>
                 <br>
                 <div class="price d-lg-flex justify-content-center">
@@ -72,7 +73,7 @@
 
             </div>
             <div class="card-footer">
-                <a href="{{ path('annonces.show',{'id': annonce.id}) }}" class="btn btn-success d-lg-flex justify-content-center ">Consulter</a>
+                <a href="{{ path('annonces.show',{'id': annonce.id}) }}" class="btn btn-success stretched-link d-lg-flex justify-content-center ">Consulter</a>
             </div>
             <!--//card-body-->
 
