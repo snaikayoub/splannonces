@@ -97,7 +97,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/setting/{id}",name="account.setting")
      */
-    public function setting(User $user, Request $request, EntityManagerInterface $manager, Security $security, UserPasswordEncoderInterface $encoder)
+    public function setting(User $user, Request $request, EntityManagerInterface $manager, Security $security)
     {
 
 
@@ -150,6 +150,41 @@ class SecurityController extends AbstractController
             'form' => $formView,
             'user' => $user,
             'title' => 'Profil' . ' ' . $user->getUsername()
+
+        ]);
+    }
+    /**
+     * @Route("/resetpwd/{id}",name="resetpwd")
+     */
+    public function ressetPwd(User $user, Request $request, EntityManagerInterface $manager, Security $security, UserPasswordEncoderInterface $encoder)
+    {
+        if ($user->getUsername() != $security->getUser()->getUsername()) {
+            return $this->redirectToRoute('logout');
+        }
+
+        $form = $this->createFormBuilder($user)
+            ->add('opassword', PasswordType::class, [
+                'mapped' => false
+            ])
+            ->add('npassword', PasswordType::class)
+            ->add('confirm_npassword', PasswordType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+        $oplainpwd = $request->request->get('form')['opassword'];
+        $nplainpwd = $request->request->get('form')['npassword'];
+        if ($form->isSubmitted() && $form->isValid() && $encoder->isPasswordValid($user, $oplainpwd)) {
+            $user->setPassword($encoder->encodePassword($user, $nplainpwd));
+            $user->setUpdatedAt(new \DateTime());
+            $manager->persist($user);
+            $manager->flush();
+            return $this->redirectToRoute('annonces');
+        }
+
+        $formView = $form->createView();
+        return $this->render('security/ressetpwd.html.twig', [
+            'form' => $formView,
+            'title' => 'Renouvelement du Mot de Passe'
 
         ]);
     }

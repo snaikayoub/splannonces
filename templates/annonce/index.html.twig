@@ -53,7 +53,7 @@
         <div class="card card-block shadow-lg">
             {% if annonce.fileName1 %}
             <img class="card-img-top" src="{{ vich_uploader_asset(annonce , 'imageFile1') | imagine_filter('my_thumb1') }}" alt="Card image cap"
-                style="height: 200px;width:298px;">
+                style="height: 200px;width:100%;">
             {% endif %}
             <div class="card-body">
                 <h5 class="card-title mb-3">
@@ -64,7 +64,7 @@
                     <span class="card-title-text"> {{ annonce.title}} </span>
                 </h5>
                 <div class="card-text">
-                    {{ annonce.description | length > 20 ? annonce.description|slice(0, 30) ~ '…' : annonce.description }}
+                    {{ annonce.description | length > 20 ? annonce.description|slice(0, 25) ~ '…' : annonce.description }}
                 </div>
                 <br>
                 <div class="price d-lg-flex justify-content-center">

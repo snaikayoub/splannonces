@@ -16,13 +16,11 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
 
     <!-- FontAwesome JS-->
-    <script defer src="{{ asset('assets/js/all.min.js') }}"></script>
+
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
     {% block stylesheets %}
 
@@ -58,6 +56,7 @@
             {% if app.user %}
 
             <li class="dropdown ">
+
                 <a class="btn btn-secondary rounded-circle p-0" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true">
                     {% if app.user.fileprofil %}
                     <img class="rounded-circle" src="{{ vich_uploader_asset(app.user , 'imgprofil') | imagine_filter('my_thumb4') }}" style="width: 100%;">
@@ -68,13 +67,14 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                     <li class="dropdown-item">
-                        <a href="{{ path('logout') }}" class="btn btn-sm d-none d-lg-flex mx-1 rounded">Déconnexion</a>
+                        <a href="{{ path('logout') }}" class="btn btn-sm d-none d-lg-flex  rounded">Déconnexion</a>
                     </li>
                     <li class="dropdown-item">
-                        <a href="{{ path('account.setting',{'id':app.user.id})}}" class="btn btn-sm d-none d-lg-flex mx-1 rounded">Parametres</a>
+                        <a href="{{ path('account.setting',{'id':app.user.id})}}" class="btn btn-sm d-none d-lg-flex  rounded">Parametres</a>
                     </li>
+
                     <li class="dropdown-item">
-                        <a href="{{ path('mes.annonces',{'user': app.user.username}) }}" class="btn  btn-sm d-none d-lg-flex mx-1 rounded">Mes annonces</a>
+                        <a href="{{ path('mes.annonces',{'user': app.user.username}) }}" class="btn  btn-sm d-none d-lg-flex  rounded">Mes annonces</a>
                     </li>
 
                     <div class="dropdown-divider"></div>
@@ -144,10 +144,11 @@
     </footer>
 
     <!-- Javascript -->
+    <script defer src="{{ asset('assets/js/all.min.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <script src="{{ asset('assets/js/bootstrap.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap.bundle.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap.esm.js') }}"></script>
     {% block javascripts %}
 
 

@@ -164,7 +164,7 @@ class AnnonceController extends AbstractController
                     ]);
                 }
                 $annonce->setExpired(false);
-                $annonce->setContact('Anony' . $annonce->getContact());
+                $annonce->setContact('Anony-' . $annonce->getContact());
                 $manager->persist($annonce);
                 $manager->flush();
 

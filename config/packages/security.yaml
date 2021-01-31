@@ -11,6 +11,7 @@ security:
             security: false
         main:
             anonymous: lazy
+
             provider: from_database
 
             form_login:
